@@ -1,4 +1,12 @@
 
+import ProcessDashboard from "./components/ProcessDashboard";
+
+export default function Home() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-black px-4">
+      <ProcessDashboard />
+
+
 import RecentProjects from "@/app/components/recentProject";
 
 export default function Home() {
@@ -87,6 +95,7 @@ export default function Home() {
     <div className="min-h-screen bg-[#0A0A0A] text-white">
       <Sidebar />
       <main className="min-h-screen pl-64" />
+
 
     </div>
 
