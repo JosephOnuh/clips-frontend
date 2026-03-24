@@ -1,4 +1,6 @@
+
 import Image from "next/image";
+import MetricsCards from "./MetricsCards";
 
 export default function Home() {
   return (
@@ -59,7 +61,9 @@ export default function Home() {
             Documentation
           </a>
         </div>
-      </main>
-    </div>
+      {/* Metrics Cards at the bottom */}
+      <MetricsCards />
+    </main>
+  </div>
   );
 }
