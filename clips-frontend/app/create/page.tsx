@@ -4,6 +4,7 @@ import { useState, useCallback } from "react";
 import { Sparkles, Upload, Link as LinkIcon, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useProcessStore } from "../hooks/useProcessStore";
+import FileUploadZone from "../components/FileUploadZone";
 
 type Platform = "tiktok" | "instagram" | "youtube";
 
@@ -36,14 +37,12 @@ export default function CreateClipsPage() {
   const hasSelectedPlatform = platforms.some((p) => p.enabled);
   const isFormValid = hasVideoInput && hasSelectedPlatform && !isSubmitting;
 
-  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const onFileSelect = useCallback((file: File | null) => {
+    setUploadedFile(file);
     if (file) {
-      // Clear URL if file is selected
       setVideoUrl("");
-      setUploadedFile(file);
-      setError(null);
     }
+    setError(null);
   }, []);
 
   const handleUrlChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
@@ -164,29 +163,14 @@ export default function CreateClipsPage() {
 
             {/* File Upload */}
             <div>
-              <label htmlFor="video-file" className="mb-2 block text-sm text-zinc-400">
+              <label htmlFor="video-file" className="mb-3 block text-sm text-zinc-400">
                 Upload Video File
               </label>
-              <label
-                htmlFor="video-file"
-                className={`flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed border-zinc-800 bg-zinc-900/30 p-8 transition hover:border-zinc-700 hover:bg-zinc-900/50 ${
-                  videoUrl.trim() !== "" || isSubmitting ? "pointer-events-none opacity-50" : ""
-                }`}
-              >
-                <Upload className="mb-3 h-10 w-10 text-zinc-600" />
-                <p className="mb-1 text-sm font-medium text-white">
-                  {uploadedFile ? uploadedFile.name : "Click to upload or drag and drop"}
-                </p>
-                <p className="text-xs text-zinc-500">MP4, MOV, AVI (max 500MB)</p>
-                <input
-                  id="video-file"
-                  type="file"
-                  accept="video/*"
-                  onChange={handleFileChange}
-                  disabled={videoUrl.trim() !== "" || isSubmitting}
-                  className="hidden"
-                />
-              </label>
+              <FileUploadZone
+                onFileSelect={onFileSelect}
+                selectedFile={uploadedFile}
+                disabled={videoUrl.trim() !== "" || isSubmitting}
+              />
             </div>
           </div>
 
