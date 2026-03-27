@@ -4,10 +4,12 @@ import DistributionCard from "@/app/components/DistributionCard";
 import DashboardHeader from "../components/DashboardHeader";
 import StatCardGroup from "@/component/Statcardgroup ";
 import RecentProjects from "../components/recentProject";
+import AutoScheduleToggle from "../components/AutoScheduleToggle";
+import WalletConnect from "../components/WalletConnect";
 
 const Dashboard = () => {
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-6 space-y-12">
+    <div className="w-full max-w-7xl mx-auto px-4 py-6 pb-20 space-y-12">
       <DashboardHeader />
 
       <div className="space-y-6">
@@ -20,7 +22,13 @@ const Dashboard = () => {
 
         {/* Recent Projects Section */}
         <RecentProjects />
+
+        {/* Wallet Integration (#93) */}
+        <WalletConnect />
       </div>
+
+      {/* Auto-Schedule Floating Toggle (#86) */}
+      <AutoScheduleToggle />
     </div>
   );
 };

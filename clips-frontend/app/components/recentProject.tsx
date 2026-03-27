@@ -3,6 +3,7 @@ import ApexImage from "@/app/assets/Container (1).svg";
 import ReactImage from "@/app/assets/Container.svg";
 import { useDashboardData } from "@/app/hooks/useDashboardData";
 import { Skeleton } from "./Skeleton";
+import ClipActionToolbar from "./ClipActionToolbar";
 
 export interface RecentProject {
   id: string | number;
@@ -111,6 +112,13 @@ export default function RecentProjects() {
                 >
                   {project.status === "processing" ? "PROCESSING" : "COMPLETED"}
                 </span>
+
+                {/* Clip Action Toolbar (#83) */}
+                <ClipActionToolbar
+                  onEdit={() => console.log("Edit clip:", project.id)}
+                  onDownload={() => console.log("Download clip:", project.id)}
+                  onPreview={() => console.log("Preview clip:", project.id)}
+                />
               </div>
             </article>
           ))
