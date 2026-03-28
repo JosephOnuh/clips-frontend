@@ -5,6 +5,7 @@ import { useDashboardData } from "@/app/hooks/useDashboardData";
 import { useClipSelectionStore } from "@/app/store/clipSelectionStore";
 import { Skeleton } from "./Skeleton";
 import ClipActionToolbar from "./ClipActionToolbar";
+import VirtualizedClipGrid from "./VirtualizedClipGrid";
 
 export interface RecentProject {
   id: string | number;
@@ -68,6 +69,15 @@ export default function RecentProjects() {
           </div>
         )}
       </div>
+
+
+      <VirtualizedClipGrid
+        projects={projects}
+        loading={loading}
+        onEdit={(id) => console.log("Edit clip:", id)}
+        onDownload={(id) => console.log("Download clip:", id)}
+        onPreview={(id) => console.log("Preview clip:", id)}
+      />
 
       <div className="grid gap-4 lg:grid-cols-2">
         {loading ? (
@@ -210,6 +220,7 @@ export default function RecentProjects() {
           })
         )}
       </div>
+
     </section>
   );
 }
