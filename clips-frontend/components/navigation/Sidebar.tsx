@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PlanUsage from "./PlanUsage";
+import StorageUsageWidget from "./StorageUsageWidget";
 
 type NavItem = {
   label: string;
@@ -19,19 +19,21 @@ const navItems: NavItem[] = [
 export default function Sidebar() {
   return (
     <aside className="fixed left-0 top-0 flex h-screen w-64 flex-col border-r border-white/5 bg-[#0A0A0A] px-5 py-6 hidden lg:flex">
-      <div className="flex items-center gap-3 px-2">
+      {/* Sidebar Header */}
+      <div className="flex items-center gap-3 px-2 mb-10 shrink-0">
         <Image src="/logo.svg" alt="ClipCash AI logo" width={36} height={36} />
         <span className="text-lg font-semibold tracking-tight">
           ClipCash <span className="text-[#00FF9D]">AI</span>
         </span>
       </div>
 
-      <nav className="mt-10 flex flex-1 flex-col gap-2">
+      {/* Main Navigation - Scrollable area */}
+      <nav className="flex flex-1 flex-col gap-2 overflow-y-auto pr-2">
         {navItems.map((item) => (
           <button
             key={item.label}
             className={[
-              "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[16px] font-medium leading-6 transition-colors",
+              "group flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-[16px] font-medium leading-6 transition-colors shrink-0",
               "text-[#94A3B8] hover:bg-[#00FF9D1A] hover:text-white",
               item.active
                 ? "border-l-2 border-[#00FF9D] bg-[#00FF9D1A] text-[#00FF9D]"
@@ -57,22 +59,28 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <PlanUsage usage={80} />
+      {/* Sidebar Footer area - Fixed at bottom */}
+      <div className="mt-auto pt-6 shrink-0 flex flex-col gap-4">
+        <StorageUsageWidget 
+          remainingStorage="12.4GB" 
+          usagePercentage={75} 
+        />
 
-      <div className="border-t border-white/5 pt-5">
-        <div className="flex items-center gap-3">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[#1F2937]">
-            <Image
-              src="/avatar.png"
-              alt="Alex Rivera avatar"
-              fill
-              sizes="40px"
-              className="object-cover"
-            />
-          </div>
-          <div className="min-w-0">
-            <p className="text-sm font-medium text-white">Alex Rivera</p>
-            <p className="truncate text-xs text-[#94A3B8]">alex@clipcash.ai</p>
+        <div className="border-t border-white/5 pt-5">
+          <div className="flex items-center gap-3">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[#1F2937]">
+              <Image
+                src="/avatar.png"
+                alt="Alex Rivera avatar"
+                fill
+                sizes="40px"
+                className="object-cover"
+              />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-medium text-white">Alex Rivera</p>
+              <p className="truncate text-xs text-[#94A3B8]">alex@clipcash.ai</p>
+            </div>
           </div>
         </div>
       </div>
