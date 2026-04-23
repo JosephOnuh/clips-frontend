@@ -44,8 +44,8 @@ export default function AuthForm({ mode = "login" }: AuthFormProps) {
         const res = await MockApi.signup(email, password, fullName);
         setUser(res.user);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       const card = document.getElementById("auth-card");
       if (card) {
         card.classList.remove("shake");
