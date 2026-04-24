@@ -48,7 +48,7 @@ export default function ProcessingHeader() {
         <div className="w-10 h-10 rounded-full border border-white/10 bg-zinc-800 flex items-center justify-center overflow-hidden">
           <img 
             src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.profile?.username || "default"}`} 
-            alt="User Avatar" 
+            alt={`${user?.profile?.username || user?.name || 'Guest'} avatar`} 
             className="w-full h-full object-cover"
           />
         </div>
