@@ -13,7 +13,8 @@ import {
   Zap,
   ArrowUpRight,
   X,
-  Gem
+  Gem,
+  LogOut
 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 
@@ -32,7 +33,7 @@ interface SidebarProps {
 
 export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const [showToast, setShowToast] = useState(false);
 
   const handleUpgradeClick = () => {
@@ -41,12 +42,12 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
   };
 
   return (
-    <aside className={`fixed inset-y-0 left-0 z-50 w-72 sm:w-[300px] lg:w-[280px] bg-background border-r border-border flex flex-col transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 ${
+    <aside role="navigation" className={`fixed inset-y-0 left-0 z-50 w-72 sm:w-[300px] lg:w-[280px] bg-[#050505] border-r border-white/5 flex flex-col transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 ${
       isOpen ? "translate-x-0" : "-translate-x-full"
     } shrink-0 h-screen sticky top-0`}>
       {/* Logo & Close */}
       <div className="p-8 flex items-center justify-between">
-        <Link href="/dashboard" className="flex items-center gap-3 text-[20px] font-extrabold tracking-tight text-white group" onClick={onClose}>
+        <Link href="/dashboard" aria-label="ClipCash AI Dashboard - Navigate to home" className="flex items-center gap-3 text-[20px] font-extrabold tracking-tight text-white group" onClick={onClose}>
           <div className="w-[32px] h-[32px] bg-brand rounded-[10px] flex items-center justify-center text-black text-[18px] group-hover:scale-110 transition-transform">
             ⚡
           </div>
@@ -54,7 +55,8 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         </Link>
         <button 
           onClick={onClose}
-          className="lg:hidden p-2 text-muted-foreground hover:text-white transition-colors"
+          aria-label="Close navigation menu"
+          className="lg:hidden p-2 text-[#5A6F65] hover:text-white transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
@@ -114,10 +116,10 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
         </div>
       </div>
 
-      {/* User section */}
-      <div className="p-6 border-t border-border bg-background/50">
-        <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-surface-hover transition-colors group cursor-pointer">
-          <div className="w-10 h-10 rounded-full border border-white/10 overflow-hidden bg-input">
+      {/* User Info */}
+      <div className="p-6 border-t border-white/5 bg-[#080C0B]/50">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 rounded-full border border-white/10 overflow-hidden bg-zinc-800">
             <img 
               src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || user?.email || 'Guest'}`} 
               alt={`${user?.username || user?.name || "User"} avatar`} 
@@ -133,6 +135,14 @@ export default function DashboardSidebar({ isOpen, onClose }: SidebarProps) {
             </div>
           </div>
         </div>
+        
+        <button 
+          onClick={logout}
+          className="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-[#8e9895] hover:text-white hover:bg-white/[0.03] transition-all text-[13px] font-medium group"
+        >
+          <LogOut className="w-4 h-4 text-[#4A5D54] group-hover:text-red-400 transition-colors" />
+          Logout
+        </button>
       </div>
 
       {/* Toast Notification */}

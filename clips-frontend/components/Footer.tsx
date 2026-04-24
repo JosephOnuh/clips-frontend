@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -31,10 +32,10 @@ export default function Footer() {
               © 2024 ClipCash AI. All rights reserved.
             </div>
           </div>
-          <div className="flex items-center gap-6 text-[12px] text-muted-foreground font-medium">
-            <a href="#" className="hover:text-muted transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-muted transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-muted transition-colors">Cookie Settings</a>
+          <div className="flex items-center gap-6 text-[12px] text-[#5b6b63] font-medium">
+            <Link href="/privacy" className="hover:text-[#8e9895] transition-colors">Privacy Policy</Link>
+            <Link href="/terms"   className="hover:text-[#8e9895] transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="hover:text-[#8e9895] transition-colors">Cookie Settings</Link>
           </div>
         </div>
       </div>
