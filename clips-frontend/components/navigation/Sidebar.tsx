@@ -1,5 +1,15 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect } from "react";
 import PlanUsage from "./PlanUsage";
+import {
+  useUserStore,
+  selectUserName,
+  selectUserEmail,
+  selectUserAvatar,
+  selectPlanUsage,
+} from "@/app/store";
 
 type NavItem = {
   label: string;
@@ -17,6 +27,16 @@ const navItems: NavItem[] = [
 ];
 
 export default function Sidebar() {
+  const fetchUser = useUserStore((s) => s.fetchUser);
+  const name = useUserStore(selectUserName);
+  const email = useUserStore(selectUserEmail);
+  const avatarUrl = useUserStore(selectUserAvatar);
+  const planUsage = useUserStore(selectPlanUsage);
+
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
+
   return (
     <aside className="fixed left-0 top-0 flex h-screen w-64 flex-col border-r border-white/5 bg-[#0A0A0A] px-5 py-6 hidden lg:flex">
       <div className="flex items-center gap-3 px-2">
@@ -57,22 +77,22 @@ export default function Sidebar() {
         ))}
       </nav>
 
-      <PlanUsage usage={80} />
+      <PlanUsage usage={planUsage} />
 
       <div className="border-t border-white/5 pt-5">
         <div className="flex items-center gap-3">
           <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[#1F2937]">
             <Image
-              src="/avatar.png"
-              alt="Alex Rivera avatar"
+              src={avatarUrl ?? "/avatar.png"}
+              alt={`${name} avatar`}
               fill
               sizes="40px"
               className="object-cover"
             />
           </div>
           <div className="min-w-0">
-            <p className="text-sm font-medium text-white">Alex Rivera</p>
-            <p className="truncate text-xs text-[#94A3B8]">alex@clipcash.ai</p>
+            <p className="text-sm font-medium text-white">{name}</p>
+            <p className="truncate text-xs text-[#94A3B8]">{email}</p>
           </div>
         </div>
       </div>
